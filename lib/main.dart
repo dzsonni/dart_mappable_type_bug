@@ -1,6 +1,26 @@
+@MappableLib(generateInitializerForScope: InitializerScope.package)
+library;
+
+import 'dart:convert';
+
+import 'package:dart_mappable/dart_mappable.dart';
+import 'package:dart_mappable_type_bug/demo_model.dart';
 import 'package:flutter/material.dart';
 
+import 'main.init.dart';
+
 void main() {
+  initializeMappers();
+  final json = """
+  {
+    "payload": {
+      "key": "value",
+      "__type": "SomeValue"
+    }
+  }
+  """;
+  final result = MapperContainer.globals.fromValue<DemoModel>(jsonDecode(json));
+  debugPrint('Decoded JSON: $result');
   runApp(const MyApp());
 }
 
